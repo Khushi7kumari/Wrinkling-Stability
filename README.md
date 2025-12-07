@@ -36,16 +36,6 @@ Output:
 
 * Breakdown Voltage (V)
 
-## Repository Structure
-
-ANN-Wrinkling-Characterization
-│ README.md
-│ vhb_breakdown_ann_simple.m
-│ vhb_breakdown_predict.m
-│ vhb_ann_simple.mat
-│ VHB_breakdown_dataset.xlsx
-└── plots/
-
 ## Methodology
 
 ANN Architecture:
