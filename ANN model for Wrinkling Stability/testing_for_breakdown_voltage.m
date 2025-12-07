@@ -1,0 +1,24 @@
+%% --- Interactive prediction using saved ANN model ---
+load('modal_for_breakdown_voltage.mat', 'net', 'muX', 'sigmaX', 'muY', 'sigmaY');
+
+% Ask user for input
+new_lambda1   = input('Enter λ1: ');
+new_lambda2   = input('Enter λ2: ');
+new_thickness = input('Enter VHB Membrane thickness: ');
+
+% Feature engineering (same as training)
+new_aspect = new_lambda2 / new_lambda1;
+new_l1t    = new_lambda1 * new_thickness;
+
+Xnew = [new_lambda1, new_lambda2, new_thickness, new_aspect, new_l1t];
+
+% Standardize using training stats
+XnewZ = (Xnew - muX) ./ sigmaX;
+
+% Predict (normalized output)
+YnewZ = predict(net, XnewZ);
+
+% Rescale to original units
+Ynew = YnewZ * sigmaY + muY;
+
+fprintf('Predicted Dim_Vbr (V) = %.4f\n', Ynew);
